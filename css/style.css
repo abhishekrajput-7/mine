@@ -135,3 +135,41 @@ opacity:.35;
 .portrait:hover{
  transform:scale(1.03);
 }
+
+.photo-viewer{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.92);
+    display:none;
+    justify-content:center;
+    align-items:center;
+    z-index:9999;
+}
+
+.photo-viewer img{
+    max-width:90%;
+    max-height:90%;
+    border-radius:18px;
+    box-shadow:0 0 60px rgba(255,255,255,.15);
+    animation:zoomIn .35s ease;
+}
+
+#closeViewer{
+    position:absolute;
+    top:25px;
+    right:35px;
+    font-size:45px;
+    color:white;
+    cursor:pointer;
+}
+
+@keyframes zoomIn{
+    from{
+        transform:scale(.7);
+        opacity:0;
+    }
+    to{
+        transform:scale(1);
+        opacity:1;
+    }
+}
