@@ -11,7 +11,32 @@ function typeLetter(){ if(typed) return; typed=true; const target=document.query
 function updateCounter(){ const diff = Math.max(0, Date.now()-relationshipStart); const s=Math.floor(diff/1000); const values=[Math.floor(s/86400),Math.floor(s/3600)%24,Math.floor(s/60)%60,s%60]; ['days','hours','minutes','seconds'].forEach((id,i)=>document.getElementById(id).textContent=String(values[i]).padStart(2,'0')); } updateCounter(); setInterval(updateCounter,1000);
 
 
-const player=document.querySelector('.player');document.querySelector('.play').onclick=e=>{player.classList.toggle('playing');e.currentTarget.textContent=player.classList.contains('playing')?'Ⅱ':'▶'};
+const player = document.querySelector(".player");
+const playBtn = document.querySelector(".play");
+const music = document.getElementById("bgMusic");
+
+playBtn.onclick = () => {
+
+    if (music.paused) {
+
+        music.play();
+
+        player.classList.add("playing");
+
+        playBtn.innerHTML = "Ⅱ";
+
+    } else {
+
+        music.pause();
+
+        player.classList.remove("playing");
+
+        playBtn.innerHTML = "▶";
+
+    }
+
+};
+
 const surprise=document.querySelector('.surprise');
 
 
