@@ -1,0 +1,18 @@
+/* Personalize this date and the letter text below. */
+const relationshipStart = new Date('2024-02-14T00:00:00');
+const letter = `My love,\n\nYou have a way of turning ordinary moments into the kind I never want to forget. Thank you for being the warmth in my days, the calm in my storms, and the most beautiful part of my story.\n\nI choose you—in every lifetime, in every little moment, and in every tomorrow.`;
+
+document.querySelectorAll('.reveal').forEach((el, i) => setTimeout(() => el.classList.add('visible'), 180 + i * 130));
+const observer = new IntersectionObserver(entries => entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('show'); if (entry.target.id === 'typed-letter') typeLetter(); } }), { threshold: .18 });
+document.querySelectorAll('.timeline-card, #typed-letter').forEach(el => observer.observe(el));
+let typed = false;
+function typeLetter(){ if(typed) return; typed=true; const target=document.querySelector('#typed-letter'); let i=0; const write=()=>{ target.innerHTML=letter.slice(0,i).replace(/\n/g,'<br>'); if(i++ < letter.length) setTimeout(write,18); }; write(); }
+
+function updateCounter(){ const diff = Math.max(0, Date.now()-relationshipStart); const s=Math.floor(diff/1000); const values=[Math.floor(s/86400),Math.floor(s/3600)%24,Math.floor(s/60)%60,s%60]; ['days','hours','minutes','seconds'].forEach((id,i)=>document.getElementById(id).textContent=String(values[i]).padStart(2,'0')); } updateCounter(); setInterval(updateCounter,1000);
+
+const lightbox=document.querySelector('.lightbox'); document.querySelectorAll('.gallery-item').forEach(item=>item.addEventListener('click',()=>{lightbox.querySelector('p').textContent=item.dataset.label;lightbox.classList.add('open');lightbox.setAttribute('aria-hidden','false')}));document.querySelector('.close-lightbox').onclick=()=>lightbox.classList.remove('open');
+const player=document.querySelector('.player');document.querySelector('.play').onclick=e=>{player.classList.toggle('playing');e.currentTarget.textContent=player.classList.contains('playing')?'Ⅱ':'▶'};
+const surprise=document.querySelector('.surprise');document.querySelector('#open-heart').onclick=()=>{surprise.classList.add('open');heartBurst(innerWidth/2,innerHeight/2,80)};document.querySelector('.close-surprise').onclick=()=>surprise.classList.remove('open');
+
+const canvas=document.querySelector('#heart-canvas'),ctx=canvas.getContext('2d');let hearts=[];function size(){canvas.width=innerWidth;canvas.height=innerHeight}size();addEventListener('resize',size);function heartBurst(x,y,count=2){for(let i=0;i<count;i++) hearts.push({x,y,vx:(Math.random()-.5)*3,vy:-Math.random()*3-1,life:1,size:4+Math.random()*8})}addEventListener('mousemove',e=>{if(Math.random()>.7)heartBurst(e.clientX,e.clientY,1)});addEventListener('click',e=>heartBurst(e.clientX,e.clientY,20));function draw(){ctx.clearRect(0,0,canvas.width,canvas.height);hearts=hearts.filter(h=>h.life>.02);hearts.forEach(h=>{h.x+=h.vx;h.y+=h.vy;h.vy+=.025;h.life*=.975;ctx.globalAlpha=h.life;ctx.fillStyle='#eeb39d';ctx.font=`${h.size}px serif`;ctx.fillText('♥',h.x,h.y)});ctx.globalAlpha=1;requestAnimationFrame(draw)}draw();
+const glow=document.querySelector('.cursor-glow');addEventListener('mousemove',e=>{glow.style.left=e.clientX+'px';glow.style.top=e.clientY+'px'});
