@@ -39,3 +39,23 @@ viewer.onclick=(e)=>{
         viewer.style.display="none";
     }
 }
+
+const heartsContainer = document.querySelector(".floating-hearts");
+
+for(let i=0;i<35;i++){
+
+    const heart=document.createElement("span");
+
+    heart.innerHTML=Math.random()>0.5?"❤":"🌸";
+
+    heart.style.left=Math.random()*100+"%";
+
+    heart.style.animationDuration=(6+Math.random()*8)+"s";
+
+    heart.style.fontSize=(14+Math.random()*18)+"px";
+
+    heart.style.animationDelay=Math.random()*5+"s";
+
+    heartsContainer.appendChild(heart);
+
+}

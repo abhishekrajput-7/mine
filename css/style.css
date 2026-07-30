@@ -173,3 +173,38 @@ opacity:.35;
         opacity:1;
     }
 }
+
+.floating-hearts{
+    position:fixed;
+    inset:0;
+    overflow:hidden;
+    pointer-events:none;
+    z-index:0;
+}
+
+.floating-hearts span{
+    position:absolute;
+    bottom:-50px;
+    color:#ff7eb6;
+    font-size:18px;
+    animation:floatHeart linear infinite;
+    opacity:.7;
+}
+
+@keyframes floatHeart{
+
+0%{
+transform:translateY(0) rotate(0deg);
+opacity:0;
+}
+
+15%{
+opacity:.8;
+}
+
+100%{
+transform:translateY(-120vh) rotate(360deg);
+opacity:0;
+}
+
+}
