@@ -1,5 +1,5 @@
 /* Personalize this date and the letter text below. */
-const relationshipStart = new Date('2024-02-14T00:00:00');
+const relationshipStart = new Date('2023-09-25T00:00:00');
 const letter = `My love,\n\nYou have a way of turning ordinary moments into the kind I never want to forget. Thank you for being the warmth in my days, the calm in my storms, and the most beautiful part of my story.\n\nI choose you—in every lifetime, in every little moment, and in every tomorrow.`;
 
 document.querySelectorAll('.reveal').forEach((el, i) => setTimeout(() => el.classList.add('visible'), 180 + i * 130));
@@ -10,7 +10,7 @@ function typeLetter(){ if(typed) return; typed=true; const target=document.query
 
 function updateCounter(){ const diff = Math.max(0, Date.now()-relationshipStart); const s=Math.floor(diff/1000); const values=[Math.floor(s/86400),Math.floor(s/3600)%24,Math.floor(s/60)%60,s%60]; ['days','hours','minutes','seconds'].forEach((id,i)=>document.getElementById(id).textContent=String(values[i]).padStart(2,'0')); } updateCounter(); setInterval(updateCounter,1000);
 
-const lightbox=document.querySelector('.lightbox'); document.querySelectorAll('.gallery-item').forEach(item=>item.addEventListener('click',()=>{lightbox.querySelector('p').textContent=item.dataset.label;lightbox.classList.add('open');lightbox.setAttribute('aria-hidden','false')}));document.querySelector('.close-lightbox').onclick=()=>lightbox.classList.remove('open');
+
 const player=document.querySelector('.player');document.querySelector('.play').onclick=e=>{player.classList.toggle('playing');e.currentTarget.textContent=player.classList.contains('playing')?'Ⅱ':'▶'};
 const surprise=document.querySelector('.surprise');document.querySelector('#open-heart').onclick=()=>{surprise.classList.add('open');heartBurst(innerWidth/2,innerHeight/2,80)};document.querySelector('.close-surprise').onclick=()=>surprise.classList.remove('open');
 
@@ -59,3 +59,35 @@ for(let i=0;i<35;i++){
     heartsContainer.appendChild(heart);
 
 }
+
+const loader=document.getElementById("loader");
+const progress=document.getElementById("loaderProgress");
+const percent=document.getElementById("loaderPercent");
+
+let value=0;
+
+const loading=setInterval(()=>{
+
+    value++;
+
+    progress.style.width=value+"%";
+
+    percent.innerHTML=value+"%";
+
+    if(value>=100){
+
+        clearInterval(loading);
+
+        setTimeout(()=>{
+
+            loader.style.opacity="0";
+
+            setTimeout(()=>{
+                loader.style.display="none";
+            },800);
+
+        },500);
+
+    }
+
+},25);
